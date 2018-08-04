@@ -32,7 +32,11 @@ features_train, features_test, labels_train, labels_test = preprocess()
 from sklearn.svm import SVC
 clf = SVC(kernel='linear')
 
-# Train the classifier on the training data
+# Using smaller training dataset to speed up the training process
+features_train = features_train[:int(len(features_train) / 100)]
+labels_train = labels_train[:int(len(labels_train) / 100)]
+
+# Train the classifier on the training dataset
 # Also, time the duration of the training
 print()
 print("Training Start...", end='')

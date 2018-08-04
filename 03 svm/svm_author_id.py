@@ -30,7 +30,7 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 # Support Vector Machine Classifier
 from sklearn.svm import SVC
-clf = SVC(kernel='linear')
+clf = SVC(kernel='rbf')
 
 # Using smaller training dataset to speed up the training process
 features_train = features_train[:int(len(features_train) / 100)]

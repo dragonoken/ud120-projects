@@ -28,16 +28,19 @@ features_train, features_test, labels_train, labels_test = preprocess()
 #########################################################
 ### your code goes here ###
 
+# For convenience when printing out the results later
+label_names = {0:'Sara', 1:'Chris'}
+
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 # Support Vector Machine Classifiers
 # With different C values
 c_vals = [10000]
-clfs = dict((c, SVC(C=c, kernel='rbf')) for c in c_vals)
+clfs = dict((c, SVC(C=c, kernel='rbf')) for c in c_vals) #{C:SVC()}
 
 # Using smaller training dataset to speed up the training process
-#features_train = features_train[:int(len(features_train) / 100)]
-#labels_train = labels_train[:int(len(labels_train) / 100)]
+features_train = features_train[:int(len(features_train) / 100)]
+labels_train = labels_train[:int(len(labels_train) / 100)]
 
 accuracy_scores = dict()
 for c_value in sorted(clfs):
@@ -60,6 +63,12 @@ for c_value in sorted(clfs):
     predictions = clfs[c_value].predict(features_test)
     print(" Done!")
     print("Predictions Made in ", round(time() - t0, 3), "s", sep='')
+
+    # Report some of the predictions
+    datapoints = [10, 26, 50]
+    print()
+    for point in datapoints:
+        print("Element", point, ":", predictions[point], label_names[predictions[point]])
 
     # Evaluate the classifier
     print()

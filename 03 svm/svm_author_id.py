@@ -32,11 +32,12 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 # Support Vector Machine Classifiers
 # With different C values
-clfs = dict((c, SVC(C=c, kernel='rbf')) for c in (10, 100, 1000, 10000))
+c_vals = [10000]
+clfs = dict((c, SVC(C=c, kernel='rbf')) for c in c_vals)
 
 # Using smaller training dataset to speed up the training process
-features_train = features_train[:int(len(features_train) / 100)]
-labels_train = labels_train[:int(len(labels_train) / 100)]
+#features_train = features_train[:int(len(features_train) / 100)]
+#labels_train = labels_train[:int(len(labels_train) / 100)]
 
 accuracy_scores = dict()
 for c_value in sorted(clfs):

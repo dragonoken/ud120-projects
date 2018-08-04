@@ -39,8 +39,8 @@ c_vals = [10000]
 clfs = dict((c, SVC(C=c, kernel='rbf')) for c in c_vals) #{C:SVC()}
 
 # Using smaller training dataset to speed up the training process
-features_train = features_train[:int(len(features_train) / 100)]
-labels_train = labels_train[:int(len(labels_train) / 100)]
+#features_train = features_train[:int(len(features_train) / 100)]
+#labels_train = labels_train[:int(len(labels_train) / 100)]
 
 accuracy_scores = dict()
 for c_value in sorted(clfs):
@@ -65,10 +65,10 @@ for c_value in sorted(clfs):
     print("Predictions Made in ", round(time() - t0, 3), "s", sep='')
 
     # Report some of the predictions
-    datapoints = [10, 26, 50]
-    print()
-    for point in datapoints:
-        print("Element", point, ":", predictions[point], label_names[predictions[point]])
+    #datapoints = [10, 26, 50]
+    #print()
+    #for point in datapoints:
+    #    print("Element", point, ":", predictions[point], label_names[predictions[point]])
 
     # Evaluate the classifier
     print()

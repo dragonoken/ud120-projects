@@ -28,6 +28,9 @@ features_train, features_test, labels_train, labels_test = preprocess()
 #########################################################
 ### your code goes here ###
 
+# Number of features per data point
+print("Number of Features :", len(features_train[0]))
+
 # Gaussian Naive Bayes Classifier
 from sklearn.tree import DecisionTreeClassifier
 clf = DecisionTreeClassifier(min_samples_split=40)

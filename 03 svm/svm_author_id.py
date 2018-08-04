@@ -28,40 +28,54 @@ features_train, features_test, labels_train, labels_test = preprocess()
 #########################################################
 ### your code goes here ###
 
-# Support Vector Machine Classifier
 from sklearn.svm import SVC
-clf = SVC(kernel='rbf')
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+# Support Vector Machine Classifiers
+# With different C values
+clfs = dict((c, SVC(C=c, kernel='rbf')) for c in (10, 100, 1000, 10000))
 
 # Using smaller training dataset to speed up the training process
 features_train = features_train[:int(len(features_train) / 100)]
 labels_train = labels_train[:int(len(labels_train) / 100)]
 
-# Train the classifier on the training dataset
-# Also, time the duration of the training
-print()
-print("Training Start...", end='')
-t0 = time()
-clf.fit(features_train, labels_train)
-print(" Done!")
-print("Training Finished in ", round(time() - t0, 3), "s", sep='')
+accuracy_scores = dict()
+for c_value in sorted(clfs):
+    # Train the classifier on the training dataset
+    # Also, time the duration of the training
+    print()
+    print("C value :", c_value)
+    print()
+    print("Training Start...", end='')
+    t0 = time()
+    clfs[c_value].fit(features_train, labels_train)
+    print(" Done!")
+    print("Training Finished in ", round(time() - t0, 3), "s", sep='')
 
-# Get predictions on labels for the test features
-# Also, measure the time it takes to make the predictions
-print()
-print("Making Predictions...", end='')
-t0 = time()
-predictions = clf.predict(features_test)
-print(" Done!")
-print("Predictions Made in ", round(time() - t0, 3), "s", sep='')
+    # Get predictions on labels for the test features
+    # Also, measure the time it takes to make the predictions
+    print()
+    print("Making Predictions...", end='')
+    t0 = time()
+    predictions = clfs[c_value].predict(features_test)
+    print(" Done!")
+    print("Predictions Made in ", round(time() - t0, 3), "s", sep='')
 
-# Evaluate the classifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-print()
-print("Accuracy :", accuracy_score(labels_test, predictions))
-print()
-print(confusion_matrix(labels_test, predictions))
-print()
-print(classification_report(labels_test, predictions))
+    # Evaluate the classifier
+    print()
+    print("With C value", c_value)
+    print()
+    accuracy_scores[c_value] = accuracy_score(labels_test, predictions)
+    print("Accuracy :", accuracy_scores[c_value])
+    print()
+    print(confusion_matrix(labels_test, predictions))
+    print()
+    print(classification_report(labels_test, predictions))
+    print()
+
+print("\n")
+print("Accuracy Score Summary :")
+for c_value in sorted(clfs):
+    print("C :", c_value, "   Accuracy :", accuracy_scores[c_value])
 print()
 
 #########################################################

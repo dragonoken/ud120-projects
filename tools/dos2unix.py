@@ -3,16 +3,16 @@
 convert dos linefeeds (crlf) to unix (lf)
 usage: dos2unix.py <input> <output>
 """
-def pkl_formatting():
+def pkl_formatting(pickle_original_file_path):
     from os.path import exists as path_exists
 
-    original = "../tools/word_data.pkl"
-    destination = "../tools/word_data_unix.pkl"
+    original = pickle_original_file_path
+    destination = pickle_original_file_path.rsplit('.pkl', 1)[0] + '_unix.pkl'
 
     if not path_exists(destination):
         if path_exists(original):
-            print("word_data_unix.pkl file does not exist.")
-            print("Generating the pickle file using word_data.pkl...")
+            print(destination, " file does not exist.")
+            print("Generating the pickle file using %s..." % (original))
             content = ''
             outsize = 0
             with open(original, 'rb') as infile:

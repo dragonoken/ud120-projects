@@ -35,7 +35,8 @@ def preprocess(words_file = "../tools/word_data_unix.pkl", authors_file="../tool
 
     """
 
-    pkl_formatting()
+    original_word_file = words_file.rsplit("_unix.pkl", 1)[0] + ".pkl"
+    pkl_formatting(original_word_file)
 
     ### the words (features) and authors (labels), already largely preprocessed
     ### this preprocessing will be repeated in the text learning mini-project

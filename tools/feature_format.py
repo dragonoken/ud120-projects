@@ -57,7 +57,15 @@ def featureFormat( dictionary, features, remove_NaN=True, remove_all_zeroes=True
     # second branch is for compatibility on final project.
     if isinstance(sort_keys, str):
         import pickle
-        keys = pickle.load(open(sort_keys, "rb"))
+        try:
+            keys = pickle.load(open(sort_keys, "rb"))
+        except pickle.UnpicklingError:
+            import sys
+            sys.path.append("../tools/")
+            from dos2unix import pkl_formatting
+            pkl_formatting(sort_keys)
+            modified_sort_keys = sort_keys.rsplit('.pkl', 1)[0] + '_unix.pkl'
+            keys = pickle.load(open(modified_sort_keys, "rb"))
     elif sort_keys:
         keys = sorted(dictionary.keys())
     else:

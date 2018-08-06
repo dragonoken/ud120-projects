@@ -59,3 +59,5 @@ top5_important_features = sorted(enumerate(tree.feature_importances_), key=(lamb
 print("Top 5 importances of features :", [importance for index, importance in top5_important_features])
 print("Top 5 important feature numbers :", [index for index, importance in top5_important_features])
 print("Features associated with those feature numbers :", [vectorizer.get_feature_names()[index] for index, importance in top5_important_features])
+print()
+print("End Of Job...")

@@ -62,7 +62,8 @@ else:
 
                 ### use str.replace() to remove any instances of the words
                 ### ["sara", "shackleton", "chris", "germani"]
-                signature_words = ["sara", "shackleton", "chris", "germani"]
+                ### "sshacklensf" is added to the list while doing the next section (Feature Selection)
+                signature_words = ["sara", "shackleton", "chris", "germani", "sshacklensf"]
                 for signature in signature_words:
                     extracted_text = extracted_text.replace(signature, '').replace('  ', ' ')
 
